@@ -2,6 +2,9 @@ import subprocess
 init_pigpio = ["sudo", "pigpiod", "-t0"]
 subprocess.Popen(init_pigpio, stdout = subprocess.PIPE, stderr = subprocess.DEVNULL)
 
+import sys
+sys.path.insert(0,"/home/pi/supreme_carnival")
+
 import numpy as np
 from Telescope import Telescope
 import Pointing_Angle as pointer
@@ -20,7 +23,7 @@ while True:
         getRA(name)
         print("Located!")
         angle = pointer.calcAngle(name, t.LAT, t.LON, Telescope.getCurrentTime(), Telescope.getAltAngle(), Telescope.getAzAngle())
-        check = t.checkConstraints(angle)
+        check = True #t.checkConstraints(angle)
         if check:
             print("Star is within viewing constraints!")
             break

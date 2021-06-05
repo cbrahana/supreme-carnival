@@ -2,6 +2,10 @@ import subprocess
 init_pigpio = ["sudo", "pigpiod", "-t0"]
 subprocess.Popen(init_pigpio, stdout = subprocess.PIPE, stderr = subprocess.DEVNULL)
 
+# Gets API to work nicely. This may need modification on your setup
+import sys
+sys.path.insert(0,"/home/pi/supreme_carnival/API")
+
 print("Initializing...")
 from Telescope import Telescope
 from basicTrack import basicTrack as angleFunc

@@ -6,8 +6,8 @@ clockSpeeds = [10,20,40,50,80,100,160,200,250,320,400,500,800,1000,1600,2000,400
 
 # Everything below is mutable and precise values are up to Collin
 azMotorCfg = {
-    'PUL': 17,          # Broadcom pin number connected to PUL- on the stepper motor
-    'DIR': 27,          # Broadcom pin number connected to DIR- on the stepper motor
+    'PUL': 14,          # Broadcom pin number connected to PUL- on the stepper motor
+    'DIR': 15,          # Broadcom pin number connected to DIR- on the stepper motor
     'PWMCLOCKS': clockSpeeds,
     'MCSTP': 400,       # Microstep stetting, pulses per revolution (400 minimum)
     'MXACC': 300,       # Max motor acceleration in degrees/sec^2.
