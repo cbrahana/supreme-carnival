@@ -23,7 +23,7 @@ Welcome to the project page of the automatic pointing telescope. The goal of thi
 
 
 ## Components and Budget
-These are the electrical and mechanical parts that we used for this design. Many of the electrical parts could be substituted for parts with comparable specifications, but these are the ones we used for this design. All parts were purchased from Amazon.
+These are the electrical and mechanical parts that we used for this design. Many of the electrical parts could be substituted for parts with comparable specifications, but these are the ones we used for this design.
 
 \# | Part | Subtotal ($)
 ---------|------|------
