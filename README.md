@@ -109,7 +109,7 @@ Along with the functionality to create one's own tracking function, a basic trac
 Also provided is a calibration script, since we did not manage to get encoders working which would theoretically automatically calibrate the telescope. This calibration script allows the user to manually point the telescope at a selected star via a series of inputted instructions. The script then calibrates based on where the telescope thinks it is pointing, and where the user says it is pointing, to calibrate the telescope. This script also doubled for us as a way to precisely actuate the telescope to a given location, there were many occations where the tracking function simply didn't work, and this function's manually inputted control ultimately allowed us to take many of the images that we did.
 
 ## Results
-The end result is a functioning system that can position a telescope and track stars. This project shows this can be built in 10 weeks. On top of that, our telescope can take high quality images of stars after pointing directly. The images below are of alpheratz and were taken with .1 sec of exposure, iso 1638.
+The end result is a functioning system that can position a telescope and track stars. This project shows this can be built in 10 weeks. On top of that, our telescope can take high quality images of stars. The images below are of alpheratz and were taken with .1 sec of exposure, iso 1638.
 
 ### Raw Images
 More images are available <a href="https://github.com/cbrahana/supreme-carnival/blob/main/images">here</a>, but here are some of the best ones.
