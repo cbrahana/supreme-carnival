@@ -86,7 +86,7 @@ However, this system of coordinates is not useful for much else.  Because of the
 
 This is why the location of objects are reported using a coordinate system called Right Ascension (RA), and Declination (DEC).  Lines of RA and DEC are essentially lines of latitude and longitude, projected into space.  What’s useful about this convention is that stars have a RA and DEC that is essentially fixed over a human life.  This means that if we specify the RA and DEC of an object, anyone, anywhere on Earth will (in principle) know exactly where in the sky the object is.
 
-To convert from RA and DEC to an actual position in the sky, we need a few values.  Besides the RA and DEC of the object, we need the position on Earth of the observer, given by their Latitude, and Longitude.  We also need the date, and the time.  Given all of these values, we can compute the position of the object in the sky, at that time.  The details of the calculation can be found <a href="http://www.stargazing.net/kepler/altaz.html">here<\a>.
+To convert from RA and DEC to an actual position in the sky, we need a few values.  Besides the RA and DEC of the object, we need the position on Earth of the observer, given by their Latitude, and Longitude.  We also need the date, and the time.  Given all of these values, we can compute the position of the object in the sky, at that time.  The details of the calculation can be found <a href="http://www.stargazing.net/kepler/altaz.html"> here </a>.
 
 
 #### Star Catalogue
