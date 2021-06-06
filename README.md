@@ -37,6 +37,10 @@ These are the electrical and mechanical parts that we used for this design. Many
 10| 1/4-inch Thrust Bearings |32.54
 3 | 1/4-inch D-shaft, 12 in | 15.16
 
+\* Optical part of the telescope only
+
+— Part was on hand, no purchase necessary
+
 Also used, from available resources:
 ~$20 PLA Printer Filament
 ~$2 assorted nuts, bolts
@@ -44,11 +48,7 @@ Also used, from available resources:
 
 Total Construction Cost, not counting unbilled resources: $260.23
 
-\* Optical part of the telescope only
-
-— Part was on hand, no purchase necessary
-
-The total cost of the electrical components we used (including shipping) came out to about $260. Including a basic Raspberry Pi and the necessary mechanical parts, this total cost of this project comes out to $300.21 . For comparison, many similar commercial telescopes with these capabilities sell closer to the $500-$1500 range, though they also usually also include the optical part of the telescope itself.
+Including a basic Raspberry Pi and the necessary mechanical parts, this total cost of this project comes out to $300.21 plus the cost whatever optical telescope is chosen. For comparison, many similar commercial telescopes with these capabilities sell closer to the $500-$1500 range, though they also usually also include the optical part of the telescope itself.
 
 ### Extra Parts
 In the interest of full disclosure, we list here the parts that we bought but did not end up using, and the parts that we bought to facilitate remote work on this project (such as multiple Raspberry Pis so that each of us could test code on them individually)
@@ -59,7 +59,7 @@ In the interest of full disclosure, we list here the parts that we bought but di
 2 | AS5600 12-bit Rotary Encoder | ~20.00
 2 | Diametric Magnets | 0.68
 
-We did not have time to fully implement encoders, although much of the functionality for controlling the telescope using encoders exists within the code.
+We did not have time to fully implement encoders, although much of the functionality for controlling the telescope using encoders exists within the code. The total cost of all parts purchased for this project was ~$370.
 
 ### Gearbox
 We decided to use stepper motors to actuate the telescope, because they are widely available. This meant that we needed a gearbox with a sufficinetly high reduction ratio, low backlash, no backdriving, and low cost. There were no COTS systems that did this, so we designed our own. We chose worm gears as the internal reduction mechanism, because they had low backlash, could not be backdriven, and could do better than the required 400:1 reduction ratio with only two gearing stages. A gearbox housing was designed to mount motors and hold shafts, and the gears were mounted in this housing with the assistance of several 3D-printed spacers. The design is demonstrated in the CAD files, and specifically in A001(long), where several unprintable parts were redesigned. Lengths of shaft were left free, and custom mounting brackets were created to fit over the free shaft and glued in place. While this made the system difficult to redesign, it also made for a stable, effective telescope mounting system.
@@ -80,8 +80,17 @@ The blue lines indicate wires that carry the PWM signal from the RPi to the cont
 In order to facilitate the remote work environment of this project, it was necessary to make the software as user-friendly and modular as possible such that the integration of various parts went smoothly. Since this was almost a necessity anyway, one of our goals was to provide a highly modular and extensible yet user-friendly software to control the telescope. We will go into detail about the main elements pieces of our software below, each being largely independent of the others to allow for this modularity, yet all working together to provide telescope functionality.
 
 ### Pointing Angle Calculation
+When trying to reference the position of a star in the sky, one potential way to do so is to say something like “It’s 20 degrees above the horizon, and 30 degrees east of north.”  This way of communicating star locations is very convenient, since anybody standing around you should be able to easily find the star.  Furthermore, it is easy to tell our telescope where to point, as we can easily determine where the telescope is currently pointing in many different ways.
 
-#### Star Database
+However, this system of coordinates is not useful for much else.  Because of the Earth’s rotation, stars appear to move in the sky.  So the original description of the star’s location will (probably) not be valid after some time passes.  Furthermore, the Earth is curved;  if I wish to specify the location of the star to someone in a completely different place on Earth, this method will not work.
+
+This is why the location of objects are reported using a coordinate system called Right Ascension (RA), and Declination (DEC).  Lines of RA and DEC are essentially lines of latitude and longitude, projected into space.  What’s useful about this convention is that stars have a RA and DEC that is essentially fixed over a human life.  This means that if we specify the RA and DEC of an object, anyone, anywhere on Earth will (in principle) know exactly where in the sky the object is.
+
+To convert from RA and DEC to an actual position in the sky, we need a few values.  Besides the RA and DEC of the object, we need the position on Earth of the observer, given by their Latitude, and Longitude.  We also need the date, and the time.  Given all of these values, we can compute the position of the object in the sky, at that time.  The details of the calculation can be found <a href="http://www.stargazing.net/kepler/altaz.html"> here </a>.
+
+
+#### Star Catalogue
+Star catalogues are collections of objects in the sky, and some information about them.  Notably, they contain their RA and DEC.  So, our issue becomes querying a catalogue, to get the RA and DEC of our object of interest to feed into the calculations mentioned above. Luckily, there is a Python package called astropy that has the capability to do this for us.  It works by querying Sesame, which in turn queries three different star catalogues. This functionality is natively included in this system, but the catalogue we used only contains the locations of fixed stars and celestial bodies. However, it would be easy to implement support for satellites, in fact, astropy has the capability to do this but we chose not to in the interest of time.
 
 ### Motor Control
 We wanted the motor control to be entirely self-contained, which makes it easier to debug code if the motors fail to run and allows for more freedom when it comes to pointing the telescope. The code uses the pigpio library, which is a 3rd party python library for Raspberry Pi which gives us control of key features of the Pi's hardware, such as its internal, hardware PWM clock. It is important that we use this hardware clock as opposed to the more common software PWM, since python is notoriously bad at handling precision time measurements, which would result in erratic and unreliable PWM signals. The hardware clock, on the other hand, is extremely precise to within about a 1 microsecond. This means that we could very precisiely control the amount of PWM signals outputted and, as each pulse is an instruction to step the motor once, this is crucial for precision control. The hardware clock does, however, come with the limitation that it can only operate at a few discrete frequencies, so we cannot continuously accelerate the motors as we sould if using a software clock. The motor control therefore includes the aility to automatically generate the necessary acceleration curve, given the maximum acceleration, maximum speed, and list of available clock frequencies provided by the user. One example of the generated acceleration curve is shown below, the acceleration is linear, then peaks and holds that maximum speed, then it decreases linearly (or as linearly as possible given the available speeds).
@@ -109,8 +118,7 @@ More images are available <a href="https://github.com/cbrahana/supreme-carnival/
 
 ### Z-Scaled Images
 (Include a brief explanation of what z-scaling is and why we did it before linking the images)
-
-## Conclusion 
+ 
 
 ## Contributors and Acknowldegements
 This project was made for the spring 2021 UCSB physics 15C/13CH lab class by (in alphabetical order by last name) Collin Brahana, Sam Crossley, Montu Ganesh, and Jack Grossman, under the observation of Dr. Andrew Jayich, and TAs Sean Buechele and Mingyu Fan.
