@@ -109,7 +109,7 @@ Along with the functionality to create one's own tracking function, a basic trac
 Also provided is a calibration script, since we did not manage to get encoders working which would theoretically automatically calibrate the telescope. This calibration script allows the user to manually point the telescope at a selected star via a series of inputted instructions. The script then calibrates based on where the telescope thinks it is pointing, and where the user says it is pointing, to calibrate the telescope. This script also doubled for us as a way to precisely actuate the telescope to a given location, there were many occations where the tracking function simply didn't work, and this function's manually inputted control ultimately allowed us to take many of the images that we did.
 
 ## Results
-(What we accomplished, as well as what we didn't manage to accomplish)
+The end result is a functioning system that can position a telescope and track stars. This project shows this can be built in 10 weeks. On top of that, our telescope can take high quality images of stars after pointing directly. The images below are of alpheratz and were taken with .1 sec of exposure, iso 1638.
 
 ### Raw Images
 More images are available <a href="https://github.com/cbrahana/supreme-carnival/blob/main/images">here</a>, but here are some of the best ones.
@@ -117,8 +117,13 @@ More images are available <a href="https://github.com/cbrahana/supreme-carnival/
 <img src="https://github.com/cbrahana/supreme-carnival/blob/main/images/Raw2.JPG">
 
 ### Z-Scaled Images
-(Include a brief explanation of what z-scaling is and why we did it before linking the images)
- 
+Due to limited resolution of an iPhone camera, most stars observed will appear essentially black. In order to better view the dynamical range of stars captured by the image, an astronomical imaging technique known as z-scaling is used. This produced higher quality images which better displayed the varying magnitudes of stars, even the dimmer stars.
+<img src="https://github.com/cbrahana/supreme-carnival/blob/main/images/spacephoto3zscalecolor.jpeg">
+<img src="https://github.com/cbrahana/supreme-carnival/blob/main/images/spacephoto4zscale.jpeg">
+<img src="https://github.com/cbrahana/supreme-carnival/blob/main/images/spacephoto2zscalecolor.jpeg">
+
+## Conclusion
+What we proved with this project is that a functioning system that can position a telescope and track stars can be built within 10 weeks. However, the telescope design and functionality can be expanded on in multiple ways. With simultaneous motor actuation, the positioning system can be more efficient in its turns and rotations. Also, with more time, we could improve on encoder functionality for this telescope system. With improvements in the design and software, this telescope could be able to more eeffectively track stars, track planets and satellites, and possibly even detect exoplanets through transits.
 
 ## Contributors and Acknowldegements
 This project was made for the spring 2021 UCSB physics 15C/13CH lab class by (in alphabetical order by last name) Collin Brahana, Sam Crossley, Montu Ganesh, and Jack Grossman, under the observation of Dr. Andrew Jayich, and TAs Sean Buechele and Mingyu Fan.
